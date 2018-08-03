@@ -21,4 +21,6 @@ public class Report{
     private Integer projectId;
     private String projectName;
     private String newProject;
+    private String startDate;
+    private String endDate;
 }

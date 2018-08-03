@@ -38,12 +38,10 @@
                 and developer=#{developer}
             </if>
             <if test="startDate!=null and startDate!=''">
-                <![CDATA[and create_date >= #{startDate}
-        ]]>
+                <![CDATA[and create_date >= #{startDate}]]>
             </if>
             <if test="endDate!=null and endDate!=''">
-                <![CDATA[and create_date <= #{endDate}
-        ]]>
+                <![CDATA[and create_date <= #{endDate}]]>
             </if>
         </where>
     </sql>

@@ -14,15 +14,19 @@ public interface IReportDao {
     @Select("select * from report where id=#{id}")
     Report findReport(Integer id);
 
-    @Insert("insert into report values(null,#{workType},#{developer},#{workContent},#{process},#{status},#{weekNo},#{type},#{remark},now(),#{projectId},#{projectName})")
+    @Insert("insert into report values(null,#{workType},#{developer},#{workContent},#{process},#{status},#{weekNo},#{type},#{remark},now(),#{projectId},#{projectName},#{startDate},#{endDate})")
     void insertReport(Report report);
 
     void batchInsert(List<Report> reportList);
 
-    @Select("delete from report where id=#{id} and developer=#{developer}")
+
+    @Select("delete from report where id=#{id}")
     void deleteReport(Report report);
 
+
     List<Report> queryReport(ReportCond report);
+
+
     Integer countReport(ReportCond report);
 
     void updateReport(Report report);

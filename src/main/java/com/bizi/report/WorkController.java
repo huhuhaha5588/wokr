@@ -101,7 +101,7 @@ public class WorkController {
     @RequestMapping("/delete.json")
     public BaseResult delete(Report report) {
         try {
-            checkLogin(report);
+//            checkLogin(report);
             reportDao.deleteReport(report);
             return new BaseResult();
         } catch (Exception e) {

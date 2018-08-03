@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
-<mapper namespace="com.bizi.weeklywork.dao.IReportDao"><!-- 若不需要自动返回主键，将useGeneratedKeys="true" keyProperty="id"去掉即可(当然如果不需要自动返回主键，直接用注解即可) -->
+<mapper namespace="com.bizi.report.dao.IReportDao"><!-- 若不需要自动返回主键，将useGeneratedKeys="true" keyProperty="id"去掉即可(当然如果不需要自动返回主键，直接用注解即可) -->
     <resultMap id="reportMap" type="Report">
         <result column="id" property="id" javaType="INTEGER"/>
         <result column="work_type" property="workType" jdbcType="VARCHAR"/>
@@ -16,6 +16,8 @@
         <result column="create_date" property="createDate" jdbcType="DATE"/>
         <result column="project_id" property="projectId" jdbcType="INTEGER"/>
         <result column="project_name" property="projectName" jdbcType="VARCHAR"/>
+        <result column="start_date" property="startDate" jdbcType="DATE"/>
+        <result column="end_date" property="endDate" jdbcType="DATE"/>
     </resultMap>
     <insert id="batchInsert" parameterType="java.util.List">
         insert into report(id,work_type,developer,work_content,process,status,week_no,type,remark,create_date) values
@@ -38,11 +40,11 @@
                 and developer=#{developer}
             </if>
             <if test="startDate!=null and startDate!=''">
-                <![CDATA[and create_date >= #{startDate}
+                <![CDATA[and start_date >= #{startDate}
         ]]>
             </if>
             <if test="endDate!=null and endDate!=''">
-                <![CDATA[and create_date <= #{endDate}
+                <![CDATA[and start_date <= #{endDate}
         ]]>
             </if>
         </where>
@@ -82,6 +84,12 @@
             </if>
             <if test="remark!=null">
                 remark=#{remark},
+            </if>
+            <if test="startDate!=null">
+                start_date=#{startDate},
+            </if>
+            <if test="endDate!=null">
+                end_date=#{endDate},
             </if>
         </set>
         where id=#{id} and developer=#{developer}

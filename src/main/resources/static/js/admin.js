@@ -34,33 +34,49 @@ BUI.use(['bui/form', 'bui/data', 'bui/grid'],
         });
         queryForm.render();
         var columns = [{
-            title: "开发人员",
-            dataIndex: "developer",
-            width: '100'
-        }, {
             title: "周报类型",
             dataIndex: "type",
-            width: '100'
+            width: '65'
+        }, {
+            title: "所属项目",
+            dataIndex: "projectName",
+            width: '60'
         }, {
             title: "任务类型",
             dataIndex: "workType",
-            width: '100'
+            width: '70'
         }, {
-            title: "项目名称",
-            dataIndex: "projectName",
-            width: '100'
-        },{
-            title: "任务进度(%)",
-            dataIndex: "process",
-            width: '100'
-        }, {
-            title: "任务状态",
-            dataIndex: "status",
-            width: '100'
-        }, {
-            title: "需求/问题任务",
+            title: "任务名称",
             dataIndex: "workContent",
             width: '100%'
+        }, {
+            title: "实际开始时间",
+            dataIndex: "startDate",
+            width: '70'
+        }, {
+            title: "实际结束时间",
+            dataIndex: "endDate",
+            width: '70'
+        }, {
+            title: "工作量",
+            dataIndex: "process",
+            width: '45'
+        },{
+            title: "负责人",
+            dataIndex: "developer",
+            width: '50'
+        },{
+            title: "完成比率",
+            dataIndex: "status",
+            width: '50'
+        },{
+            title: "任务拖延原因/客户评价",
+            dataIndex: "remark",
+            width: '100'
+        },{
+            title: "填写日期",
+            dataIndex: "createDate",
+            width: '70'
         }];
 
         var store = new Data.Store({

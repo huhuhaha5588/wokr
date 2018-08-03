@@ -26,20 +26,22 @@
         <form id="queryForm" class="form-horizontal">
             <div class="row-fluid">
                 <div class="control-group span4">
-                    <label class="control-label">开发</label>
+                    <label class="control-label">负责人</label>
                     <div class="controls">
                         <input name="developer" type="text" class="input-small control-text" id="developer">
                     </div>
                 </div>
                 <div class="control-group span4">
-                    <label class="control-label">任务类型</label>
+                    <label class="control-label">周报类型</label>
                     <div class="controls">
-                        <input name="codeType" type="text"
-                               class="input-small control-text">
+                        <select name='type' data-rules='{required:true}' class='input-small'>
+                            <option value='本周工作'>本周工作</option>
+                            <option value='下周计划'>下周计划</option>
+                        </select>
                     </div>
                 </div>
                 <div class="control-group span6">
-                    <label class="control-label">填报日期</label>
+                    <label class="control-label">日期区间</label>
                     <div class="controls bui-form-group" data-rules="{dateRange : true}">
                         <input name="startDate" data-tip="{text : '起始日期'}" data-rules="{required:true}"
                                data-messages="{required:'起始日期不能为空'}" class="input-small calendar" type="text" id="startDate"><label>
@@ -82,6 +84,19 @@
                 <form id="codeForm" class="form-horizontal">
                     <div class="row-fluid">
                         <div class="control-group">
+                            <label class="control-label"><s>*</s>所属项目</label>
+                            <div class="controls">
+                                <select class="input-normal" name="projectId" id="projectId"></select>
+                                <input name="newProject" type="text" class="input-small hide">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"><s>*</s>负责人</label>
+                            <div class="controls">
+                                <input name="developer" type="text" class="input-normal" id="developer" data-rules="{required:true}">
+                            </div>
+                        </div>
+                        <div class="control-group">
                             <label class="control-label"><s>*</s>周报类型</label>
                             <div class="controls">
                                 <select name='type' data-rules='{required:true}'
@@ -95,55 +110,62 @@
                             <label class="control-label">任务类型</label>
                             <div class="controls">
                                 <select name="workType" type="text" class="input-normal">
-                                    <option value="需求">需求</option>
-                                    <option value="BUG">BUG</option>
-                                    <option value="咨询答疑">咨询答疑</option>
-                                    <option value="线上问题">线上问题</option>
+                                    <option value="1-需求">1-需求</option>
+                                    <option value="2-设计">2-设计</option>
+                                    <option value="3-开发">3-开发</option>
+                                    <option value="4-运维">4-运维</option>
+                                    <option value="5-测试">5-测试</option>
+                                    <option value="6-配置">6-配置</option>
+                                    <option value="7-编写手册">7-编写手册</option>
+                                    <option value="8-其他">8-其他</option>
                                 </select>
                             </div>
                         </div>
+
                         <div class="control-group">
-                            <label class="control-label"><s>*</s>所属项目</label>
-                            <div class="controls">
-                                <select class="input-normal" name="projectId" id="projectId"></select>
-                                <input name="newProject" type="text" class="input-small hide">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label"><s>*</s>工作内容</label>
+                            <label class="control-label"><s>*</s>任务名称</label>
                             <div class="controls">
                                 <textarea name="workContent"></textarea>
                             </div>
                         </div>
+                        <div class="control-group" data-rules="{dateRange : true}">
+                            <label class="control-label"><s>*</s>开始时间</label>
+                            <div class="controls">
+                                <input name="startDate" data-rules="{required:true}"
+                                       data-messages="{required:'起始日期不能为空'}" class="input-small calendar" type="text" name="startdate">
+                            </div>
+                        </div>
+                        <div class="control-group" data-rules="{dateRange : true}">
+                            <label class="control-label"><s>*</s>结束时间</label>
+                            <div class="controls">
+                                <input name="endDate"  data-rules="{required:true}"
+                                       data-messages="{required:'结束日期不能为空'}" class="input-small calendar" type="text" name="enddate">
+                            </div>
+                        </div>
+
                         <div class="control-group">
-                            <label class="control-label"><s>*</s>进度(%)</label>
+                            <label class="control-label"><s>*</s>工作量</label>
                             <div class="controls">
                                 <input name="process" type="text" class="input-normal"
-                                       data-rules='{required:true,number:true,max:100,min:0}'>%
+                                       data-rules='{required:true,number:true,max:7,min:0}'>人天
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">任务状态</label>
+                            <label class="control-label">完成比率</label>
                             <div class="controls">
-                                <select name="status" type="text" class="input-normal">
-                                    <option value="需求中">需求中</option>
-                                    <option value="需求定稿">需求定稿</option>
-                                    <option value="设计">设计</option>
-                                    <option value="待开发">待开发</option>
-                                    <option value="开发中">开发中</option>
-                                    <option value="联调测试">联调测试</option>
-                                    <option value="已提测">已提测</option>
-                                    <option value="测试中">测试中</option>
-                                    <option value="UAT测试">UAT测试</option>
-                                    <option value="已上线">已上线</option>
-                                    <option value="暂停">暂停</option>
+                                <select name="status" data-rules='{required:true}' class="input-normal">
+                                    <option value="100%">100%</option>
+
                                 </select>
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">备注</label>
+                            <label class="control-label">任务拖延原因/客户评价</label>
                             <div class="controls">
-                                <textarea name="remark"></textarea>
+                                <select name="remark" data-rules='{required:true}' class="input-normal">
+                                    <option value="客户评价：满意">客户评价：满意</option>
+
+                                </select>
                             </div>
                         </div>
                     </div>

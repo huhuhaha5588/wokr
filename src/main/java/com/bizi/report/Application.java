@@ -13,6 +13,10 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
+
+import org.springframework.boot.builder.SpringApplicationBuilder;
+//import org.springframework.boot.builder.SpringApplicationBuilder;
 
 
 import javax.sql.DataSource;
@@ -24,7 +28,7 @@ import javax.sql.DataSource;
 
 @MapperScan("com.bizi.report.dao")
 @EnableScheduling
-public class Application {
+public class Application  extends SpringBootServletInitializer{
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
@@ -33,8 +37,8 @@ public class Application {
     public DataSource dataSource() {
         DruidDataSource druidDataSource = new DruidDataSource();
         druidDataSource.setUrl("jdbc:mysql://localhost:3306/work_report?useUnicode=true&characterEncoding=UTF-8");
-        druidDataSource.setUsername("username");
-        druidDataSource.setPassword("password");
+        druidDataSource.setUsername("workreport");
+        druidDataSource.setPassword("workreport");
         druidDataSource.setDriverClassName("com.mysql.jdbc.Driver");
         druidDataSource.setMinIdle(2);
         druidDataSource.setMinEvictableIdleTimeMillis(60000);
@@ -51,15 +55,25 @@ public class Application {
         fb.setDataSource(dataSource);//指定数据源(这个必须有，否则报错)
         //下边两句仅仅用于*.xml文件，如果整个持久层操作不需要使用到xml文件的话（只用注解就可以搞定），则不加
         fb.setTypeAliasesPackage("com.bizi.report.dto");//指定基包
-        fb.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/*.xml"));//指定xml文件位置
-
-        return fb.getObject();
+        try {
+            fb.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:mapper/*.xml"));//指定xml文件位置
+            return fb.getObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
-    @Bean
-    public FilterRegistrationBean filterRegistrationBean() {
-        FilterRegistrationBean registration = new FilterRegistrationBean();
-        /*单点登录配置*/
-        return registration;
+//    @Bean
+//    public FilterRegistrationBean filterRegistrationBean() {
+//        FilterRegistrationBean registration = new FilterRegistrationBean();
+//        /*单点登录配置*/
+//        return registration;
+//    }
+    @Override
+    protected SpringApplicationBuilder configure(
+            SpringApplicationBuilder application) {
+        return application.sources(Application.class);
     }
+
 }

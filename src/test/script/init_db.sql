@@ -11,6 +11,8 @@ CREATE TABLE `report` (
   `create_date` date DEFAULT NULL,
   `project_id` int(11) DEFAULT NULL,
   `project_name` varchar(255) DEFAULT NULL,
+  `start_date` date DEFAULT NULL,
+  `end_date` date DEFAULT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1042 DEFAULT CHARSET=utf8 COMMENT='工时统计';
 

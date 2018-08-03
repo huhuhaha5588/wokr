@@ -1,18 +1,18 @@
 BUI.use(['bui/form', 'bui/data', 'bui/grid','bui/select'],
     function (Form, Data, Grid,Select) {
-        $.ajax({
-            url: "user/getName.json",
-            type: "post",
-            async: false,
-            success: function (data) {
-                if (data.message) {
-                    $("#welcome").text(data.message);
-                    $("#developer").val(data.message);
-                } else {
-                    $("#welcome").text("您还未登陆!");
-                }
-            }
-        });
+        // $.ajax({
+        //     url: "user/getName.json",
+        //     type: "post",
+        //     async: false,
+        //     success: function (data) {
+        //         if (data.message) {
+        //             $("#welcome").text(data.message);
+        //             $("#developer").val(data.message);
+        //         } else {
+        //             $("#welcome").text("您还未登陆!");
+        //         }
+        //     }
+        // });
         $.ajax({
             url: "user/getWeekNo.json",
             type: "post",
@@ -55,37 +55,37 @@ BUI.use(['bui/form', 'bui/data', 'bui/grid','bui/select'],
         });
 
         var columns = [{
-            title: "开发人员",
-            dataIndex: "developer",
-            width: '100'
-        }, {
             title: "周报类型",
             dataIndex: "type",
-            width: '100'
-        }, {
-            title: "任务类型",
-            dataIndex: "workType",
-            width: '100'
+            width: '65'
         }, {
             title: "所属项目",
             dataIndex: "projectName",
-            width: '150'
+            width: '60'
+        },{
+            title: "负责人",
+            dataIndex: "developer",
+            width: '50'
         }, {
+            title: "任务类型",
+            dataIndex: "workType",
+            width: '70'
+        },  {
             title: "需求/问题任务",
             dataIndex: "workContent",
             width: '100%'
         }, {
-            title: "任务进度(%)",
+            title: "工作量",
             dataIndex: "process",
-            width: '100'
+            width: '45'
         }, {
-            title: "任务状态",
-            dataIndex: "status",
-            width: '100'
+            title: "开始时间",
+            dataIndex: "startDate",
+            width: '70'
         }, {
-            title: "填写时间",
-            dataIndex: "createDate",
-            width: '100'
+            title: "结束时间",
+            dataIndex: "endDate",
+            width: '70'
         }];
 
         var store = new Data.Store({
@@ -96,7 +96,7 @@ BUI.use(['bui/form', 'bui/data', 'bui/grid','bui/select'],
             url: url_query,
             pageSize: 20,
             params: queryForm.toObject(),
-            autoLoad: false
+            autoLoad: true
         });
         var grid = new Grid.Grid({
             render: '#grid',
