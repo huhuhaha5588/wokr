@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?><!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 指定工作空间，要与接口名相同，源代码没有去看，猜测应该是通过"这里的namespace.下边方法的id"来定位方法的 -->
+<mapper namespace="com.bizi.report.dao.IReviewDao"><!-- 若不需要自动返回主键，将useGeneratedKeys="true" keyProperty="id"去掉即可(当然如果不需要自动返回主键，直接用注解即可) -->
+    <resultMap id="reviewMap" type="Review">
+        <result column="Id" property="id" javaType="INTEGER"/>
+        <result column="task_id" property="taskId" jdbcType="VARCHAR"/>
+        <result column="doc_name" property="docName" jdbcType="VARCHAR"/>
+        <result column="doc_type" property="docType" javaType="INTEGER"/>
+        <result column="bug_no" property="bugNo" jdbcType="VARCHAR"/>
+        <result column="review_idea" property="reviewIdea" jdbcType="VARCHAR"/>
+        <result column="reviewer" property="reviewer" jdbcType="VARCHAR"/>
+        <result column="review_way" property="reviewWay" jdbcType="DATE"/>
+        <result column="start_date" property="startDate" javaType="INTEGER"/>
+        <result column="review_hour" property="reviewHour" jdbcType="VARCHAR"/>
+        <result column="conclusion" property="conclusion" jdbcType="DATE"/>
+        <result column="end_date" property="endDate" jdbcType="VARCHAR"/>
+        <result column="developer" property="developer" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="create_date" property="createDate" jdbcType="DATE"/>
+        <result column="project" property="project" jdbcType="VARCHAR"/>
+
+    </resultMap>
+
+    <sql id="queryCond">
+        <where>
+            <if test="project!=null and project!=''" >
+                and project=#{project}
+            </if>
+            <if test="developer!=null and developer!=''">
+                and developer=#{developer}
+            </if>
+            <if test="startDate!=null and startDate!=''">
+                <![CDATA[and start_date >= #{startDate}
+        ]]>
+            </if>
+            <if test="endDate!=null and endDate!=''">
+                <![CDATA[and start_date <= #{endDate}
+        ]]>
+            </if>
+        </where>
+    </sql>
+    <select id="query" parameterType="ReportCond" resultMap="reviewMap">
+        select * from review
+        <include refid="queryCond"/>
+        limit #{start},#{limit}
+    </select>
+    <select id="count" parameterType="Review" resultType="java.lang.Integer">
+        select count(1) from review
+        <include refid="queryCond"/>
+    </select>
+    <update id="update" parameterType="Review">
+        update review
+        <set>
+
+            <if test="taskId!=null"> task_id=#{taskId}, </if>
+            <if test="docName!=null"> doc_name=#{docName}, </if>
+            <if test="docType!=null"> doc_type=#{docType}, </if>
+            <if test="bugNo!=null"> bug_no=#{bugNo}, </if>
+            <if test="reviewIdea!=null"> review_idea=#{reviewIdea}, </if>
+            <if test="reviewer!=null"> reviewer=#{reviewer}, </if>
+            <if test="reviewWay!=null"> review_way=#{reviewWay}, </if>
+            <if test="startDate!=null"> start_date=#{startDate}, </if>
+            <if test="reviewHour!=null"> review_hour=#{reviewHour}, </if>
+            <if test="conclusion!=null"> conclusion=#{conclusion}, </if>
+            <if test="endDate!=null"> end_date=#{endDate}, </if>
+            <if test="developer!=null"> developer=#{developer}, </if>
+            <if test="remark!=null"> remark=#{remark}, </if>
+        </set>
+        where id=#{id} and reporter=#{reporter}
+    </update>
+</mapper>
