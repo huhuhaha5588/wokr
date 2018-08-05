@@ -22,21 +22,20 @@
     <div class="panel-body">
         <form id="queryForm" class="form-horizontal">
             <div class="row-fluid">
-                <div class="control-group span6">
+                <div class="control-group span4">
                     <label class="control-label">责任人</label>
                     <div class="controls">
-                        <input name="developer" type="text" class="input-small>
+                        <input name="developer" type="text" class="input-small control-text" id="developer">
                     </div>
                 </div>
-
                 <div class="control-group span6">
-                    <label class="control-label">开始日期范围</label>
+                    <label class="control-label">日期范围</label>
                     <div class="controls bui-form-group" data-rules="{dateRange : true}">
-                        <input name="startDate" data-tip="{text : '起始日期'}" data-rules="{required:true}"
+                        <input name="startDate"  data-rules="{required:true}"
                                data-messages="{required:'起始日期不能为空'}" class="input-small calendar" type="text"
                                id="startDate"><label>
                         &nbsp;-&nbsp;</label>
-                        <input name="endDate" data-tip="{text : '截止日期'}" data-rules="{required:true}"
+                        <input name="endDate"  data-rules="{required:true}"
                                data-messages="{required:'结束日期不能为空'}" class="input-small calendar" type="text"
                                id="endDate">
                     </div>
@@ -68,49 +67,126 @@
                 <div class="panel-bar ">
                     <button id="add" type="button" class="button button-query">新增</button>
                     <button id="edit" type="button" class="button button-primary">编辑</button>
-                    <!--<button id="delete" type="button" class="button button-danger">删除</button>-->
+                    <button id="delete" type="button" class="button button-danger">删除</button>
                 </div>
             </div>
             <div class="panel-body">
                 <form id="codeForm" class="form-horizontal">
                     <div class="row-fluid">
                         <div class="control-group">
-                            <label class="control-label"><s>*</s>问题类型</label>
+                            <label class="control-label"><s>*</s>项目名称</label>
                             <div class="controls">
-                                <select name='type' data-rules='{required:true}'
-                                        class='input-normal'>
-                                    <option value='逻辑变更'>需求变更</option>
-                                    <option value='界面调整'>界面调整</option>
-                                    <option value='运行错误'>运行错误</option>
+                                <select name="projectName"  type="text" class="input-normal" >
+                                    <option value="PICCH">PICCH</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">任务编号</label>
+                            <div class="controls">
+                                <input name="taskId" type="text" class="input-normal">
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">文档名称</label>
+                            <div class="controls">
+                                <input name="docAame" type="text" class="input-normal">
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">文档类型</label>
+                            <div class="controls">
+                                <select name="docType"  type="text" class="input-normal" >
+                                    <option value="需求">需求</option>
+                                    <option value="设计">设计</option>
+                                    <option value="代码">代码</option>
+                                    <option value="用例">用例</option>
+                                    <option value="其他">其他</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">发现问题数</label>
+                            <div class="controls">
+                                <input name="bugNo" type="text" class="input-normal"
+                                       id="bugNo" data-rules='{number:true,max:10,min:0}'>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">评审问题或意见</label>
+                            <div class="controls">
+                                <textarea name="reviewIdea"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">参加评审人</label>
+                            <div class="controls">
+                                <input name="reviewer" type="text" class="input-normal">
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">评审方式</label>
+                            <div class="controls">
+                                <select name="reviewWay"  type="text" class="input-normal" >
+                                    <option value="1-会议">1-会议</option>
+                                    <option value="2-会议+邮件">2-会议+邮件</option>
+                                    <option value="3-邮件">3-邮件</option>
+                                    <option value="4-其他">4-其他</option>
                                 </select>
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><s>*</s>所属菜单</label>
+                            <label class="control-label"><s>*</s>评审开始日</label>
                             <div class="controls">
-                                <input name="menu" type="text" class="input-small hide">
+                                    <input name="startDate" data-rules="{required:true}"
+                                           data-messages="{required:'起始日期不能为空'}" class="input-small calendar" type="text">
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label"><s>*</s>问题描述</label>
+                            <label class="control-label">评审用时</label>
                             <div class="controls">
-                                <textarea name="description"></textarea>
+                                <input name="reviewHour" type="text" class="input-normal"
+                                        data-rules='{number:true,max:100,min:0}'>（人时）
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">问题状态</label>
+                            <label class="control-label">评审结论</label>
                             <div class="controls">
-                                <select name="status" type="text" class="input-normal">
-                                    <option value="已提交">已提交</option>
-                                    <option value="已解决">已解决</option>
-                                    <option value="误报">误报</option>
+                                <select name="conclusion"  type="text" class="input-normal" >
+                                    <option value="通过">通过</option>
+                                    <option value="延期">延期</option>
+                                    <option value="退回">退回</option>
+                                    <option value="上报">上报</option>
+                                    <option value="延期">延期</option>
+                                    <option value="其它">其它</option>
                                 </select>
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="control-label">备注</label>
+                            <label class="control-label">评审完成日</label>
                             <div class="controls">
-                                <textarea name="remark"></textarea>
+                                <input name="endDate"
+                                       data-messages="{required:'结束日期不能为空'}" class="input-small calendar" type="text">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label"><s>*</s>责任人</label>
+                            <div class="controls">
+                                <input name="developer" type="text" class="input-normal" data-rules="{required:true}">
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label class="control-label">评审问题或意见跟踪</label>
+                            <div class="controls">
+                                <input name="remark" type="text" class="input-normal">
                             </div>
                         </div>
                     </div>
@@ -132,6 +208,6 @@
 <script type="text/javascript" src="bui/js/jquery-1.8.1.min.js"></script>
 <script type="text/javascript" src="bui/js/seed-min.js"></script>
 <script type="text/javascript" src="js/common.js"></script>
-<script type="text/javascript" src="js/bugReport.js"></script>
+<script type="text/javascript" src="js/review.js"></script>
 </body>
 </html>
