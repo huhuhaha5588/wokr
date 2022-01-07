@@ -18,6 +18,7 @@ public class TestController {
         return "index";
     }
     @RequestMapping("/test2")
+    //hotfix
     public ModelAndView test2(){
         return new ModelAndView("index");
     }
